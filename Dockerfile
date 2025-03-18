@@ -1,5 +1,5 @@
 # Use NVIDIA CUDA base image with Ubuntu
-FROM nvidia/cuda:12.1.0-base-ubuntu22.04
+FROM nvidia/cuda:12.1.0-devel-ubuntu22.04
 
 # Avoid prompts from apt
 ENV DEBIAN_FRONTEND=noninteractive
@@ -22,6 +22,9 @@ ENV PATH="/root/.rye/shims:${PATH}"
 
 # Set up shell for Rye
 RUN echo 'source "$HOME/.rye/env"' >> ~/.bashrc
+
+ENV PATH="/usr/local/cuda/bin:${PATH}"
+ENV LD_LIBRARY_PATH="/usr/local/cuda/lib64:${LD_LIBRARY_PATH}"
 
 # Verify installations
 RUN python3 --version && \
