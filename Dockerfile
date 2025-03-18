@@ -16,7 +16,8 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Rye
-RUN curl -sSf https://rye-up.com/get | bash
+RUN curl -sSf https://rye.astral.sh/get | RYE_VERSION="0.4.4" RYE_INSTALL_OPTION="--yes" bash
+
 ENV PATH="/root/.rye/shims:${PATH}"
 
 # Set up shell for Rye
