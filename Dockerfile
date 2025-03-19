@@ -35,4 +35,4 @@ RUN python3 --version && \
 WORKDIR /app
 
 # Default command
-CMD ["/bin/bash"]
+CMD ["sleep", "infinity"]
