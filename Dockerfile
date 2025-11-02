@@ -16,21 +16,19 @@ RUN apt-get update && apt-get install -y \
     clang \
     openssh-client \
     openssh-server \
+    ca-certificates \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Rye
 RUN curl -sSf https://rye.astral.sh/get | RYE_INSTALL_OPTION="--yes" bash
-
 ENV PATH="/root/.rye/shims:${PATH}"
-
-# Set up shell for Rye
 RUN echo 'source "$HOME/.rye/env"' >> ~/.bashrc
 
 # Install uv
-RUN curl -LsSf https://astral.sh/uv/install.sh | sh
-
-ENV PATH="/root/.cargo/bin:${PATH}"
+ADD https://astral.sh/uv/install.sh /uv-installer.sh
+RUN sh /uv-installer.sh && rm /uv-installer.sh
+ENV PATH="/root/.local/bin/:$PATH" 
 
 # Configure git to use credential helper for GitHub token
 RUN git config --global credential.helper store
