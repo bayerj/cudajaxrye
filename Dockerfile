@@ -51,8 +51,10 @@ ARG PUBLIC_KEY
 # Set up SSH
 RUN mkdir -p ~/.ssh && \
     chmod 700 ~/.ssh && \
-    if [ -n "$PUBLIC_KEY" ]; then echo "$PUBLIC_KEY" >> ~/.ssh/authorized_keys; fi && \
-    chmod 600 ~/.ssh/authorized_keys && \
+    if [ -n "$PUBLIC_KEY" ]; then \
+        echo "$PUBLIC_KEY" >> ~/.ssh/authorized_keys && \
+        chmod 600 ~/.ssh/authorized_keys; \
+    fi && \
     mkdir -p /run/sshd
 
 # Expose SSH port
