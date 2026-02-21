@@ -19,6 +19,7 @@ RUN apt-get update && apt-get install -y \
     openssh-server \
     ca-certificates \
     tmux \
+    rsync \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -31,6 +32,10 @@ RUN echo 'source "$HOME/.rye/env"' >> ~/.bashrc
 ADD https://astral.sh/uv/install.sh /uv-installer.sh
 RUN sh /uv-installer.sh && rm /uv-installer.sh
 ENV PATH="/root/.local/bin/:$PATH" 
+
+# Install bazelisk as bazel (needed to build dm-tree)
+RUN curl -fsSL https://github.com/bazelbuild/bazelisk/releases/latest/download/bazelisk-linux-amd64 \
+    -o /usr/local/bin/bazel && chmod +x /usr/local/bin/bazel
 
 # Configure git to use credential helper for GitHub token
 RUN git config --global credential.helper store
