@@ -60,5 +60,5 @@ RUN mkdir -p ~/.ssh && \
 # Expose SSH port
 EXPOSE 22
 
-# Default command - start SSH and sleep
-CMD service ssh start && sleep infinity
+# Default command - start SSH and sleep; also write PUBLIC_KEY to authorized keys file -- runpod specific
+CMD bash -c 'mkdir -p ~/.ssh && if [ -n "$PUBLIC_KEY" ]; then echo "$PUBLIC_KEY" > ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys; fi && service ssh start && sleep infinity'
