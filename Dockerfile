@@ -6,6 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Install necessary dependencies
 RUN apt-get update && apt-get install -y \
+    cmake \
     curl \
     git \
     build-essential \
@@ -17,6 +18,7 @@ RUN apt-get update && apt-get install -y \
     openssh-client \
     openssh-server \
     ca-certificates \
+    tmux \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
